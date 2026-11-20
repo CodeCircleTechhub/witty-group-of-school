@@ -6,32 +6,39 @@
     <meta name="theme-color" content="#050e26" />
 
     <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
+    <link rel="apple-touch-icon" href="/logo.jpeg" />
     <link rel="canonical" href="https://wittyacademy.com/" />
 
     <!-- Primary SEO -->
-    <title>Witty Group of Schools | Secondary School Portal — Ilorin</title>
-    <meta name="description" content="Witty Group of Schools — 'Success in both Worlds' (الفلاح في الدارين). A distinguished Islamic & Western academy at Basin Road, Beside NHIS, Ilorin, Kwara State. From JSS to SS, we blend Qur'anic excellence with the Nigerian curriculum, WAEC & NECO preparation, moral discipline and a modern student, parent and teacher portal. Admissions open for the 2025/2026 session." />
-    <meta name="keywords" content="Witty Group of Schools, Ilorin school, Islamic school Ilorin, secondary school Kwara, Basin Road school, NHIS Ilorin school, Quranic and Western education, admission Ilorin" />
+    <title>Witty Group of Schools | Islamic &amp; Western Academy, Ilorin</title>
+    <meta name="description" content="Islamic &amp; Western academy in Ilorin, Kwara State. Success in Both Worlds — primary &amp; secondary learning, WAEC/NECO prep, and a connected school portal." />
+    <meta name="keywords" content="Witty Group of Schools, Witty Academy Ilorin, Islamic and Western school Ilorin, primary school Ilorin, secondary school Ilorin, Kwara State school, Basin Road school, NHIS Ilorin school, Quranic and Western education, WAEC NECO Ilorin, school portal Ilorin, admission Ilorin" />
     <meta name="author" content="Witty Group of Schools" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="geo.region" content="NG-KW" />
+    <meta name="geo.placename" content="Ilorin, Kwara State, Nigeria" />
+    <meta name="geo.position" content="8.4966;4.5421" />
+    <meta name="ICBM" content="8.4966, 4.5421" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Witty Group of Schools" />
-    <meta property="og:title" content="Witty Group of Schools | Secondary School Portal — Ilorin" />
-    <meta property="og:description" content="Witty Group of Schools — an Islamic & Western academy in Ilorin (Basin Road, Beside NHIS, Kwara State) uniting Qur'anic excellence with the Nigerian curriculum for JSS to SS learners." />
+    <meta property="og:title" content="Witty Group of Schools | Islamic &amp; Western Academy — Ilorin" />
+    <meta property="og:description" content="Success in Both Worlds. An Islamic &amp; Western academy at Basin Road, Beside NHIS, Ilorin, Kwara State — primary and secondary education, WAEC/NECO preparation, and one connected portal for admins, teachers, students and parents." />
     <meta property="og:url" content="https://wittyacademy.com/" />
-    <meta property="og:image" content="https://wittyacademy.com/logo.jpeg" />
-    <meta property="og:image:width" content="1254" />
-    <meta property="og:image:height" content="1254" />
-    <meta property="og:image:alt" content="Witty Group of Schools logo" />
+    <meta property="og:image" content="https://wittyacademy.com/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="1165" />
+    <meta property="og:image:alt" content="Witty Group of Schools logo with primary and secondary students in school uniform" />
     <meta property="og:locale" content="en_NG" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Witty Group of Schools | Secondary School Portal — Ilorin" />
-    <meta name="twitter:description" content="Witty Group of Schools — Success in both Worlds. Islamic & Western education at Basin Road, Beside NHIS, Ilorin, Kwara State." />
-    <meta name="twitter:image" content="https://wittyacademy.com/logo.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Witty Group of Schools | Islamic &amp; Western Academy — Ilorin" />
+    <meta name="twitter:description" content="Success in Both Worlds. Islamic &amp; Western education at Basin Road, Beside NHIS, Ilorin, Kwara State — primary, secondary and a connected school portal." />
+    <meta name="twitter:image" content="https://wittyacademy.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Witty Group of Schools logo with students in uniform" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,25 +51,76 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        "name": "Witty Group of Schools",
-        "url": "https://wittyacademy.com/",
-        "description": "Success in both Worlds - an Islamic and Western academy in Ilorin empowering every child with academic brilliance, moral integrity and proud character.",
-        "logo": "https://wittyacademy.com/logo.jpeg",
-        "email": "wittyacademy@gmail.com",
-        "telephone": "+2348021041132",
-        "motto": "Success in both Worlds",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Basin Road, Beside NHIS",
-          "addressLocality": "Ilorin",
-          "addressRegion": "Kwara State",
-          "addressCountry": "NG"
-        },
-        "parentOrganization": {
-          "@type": "School",
-          "name": "Witty Group of Schools"
-        }
+        "@graph": [
+          {
+            "@type": ["School", "EducationalOrganization"],
+            "@id": "https://wittyacademy.com/#school",
+            "name": "Witty Group of Schools",
+            "alternateName": "WGS",
+            "url": "https://wittyacademy.com/",
+            "description": "An Islamic and Western academy in Ilorin, Kwara State, Nigeria, nurturing academic brilliance, moral integrity and proud character from early years through secondary school.",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://wittyacademy.com/logo.jpeg",
+              "width": 1254,
+              "height": 1254
+            },
+            "image": "https://wittyacademy.com/og-image.jpg",
+            "slogan": "Success in Both Worlds",
+            "foundingDate": "2023",
+            "email": "wittyacademy@gmail.com",
+            "telephone": "+2348021041132",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Basin Road, Beside NHIS",
+              "addressLocality": "Ilorin",
+              "addressRegion": "Kwara State",
+              "addressCountry": "NG"
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Ilorin"
+            },
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+2348021041132",
+                "contactType": "admissions",
+                "areaServed": "NG",
+                "availableLanguage": "English"
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+2348108944151",
+                "contactType": "customer support",
+                "areaServed": "NG",
+                "availableLanguage": "English"
+              }
+            ],
+            "department": [
+              {
+                "@type": "School",
+                "name": "Witty Primary School",
+                "description": "Early Years to Grade 6 — a strong foundation in literacy, numeracy, Islamic values and character."
+              },
+              {
+                "@type": "School",
+                "name": "Witty Secondary School",
+                "description": "JSS to SS — WAEC and NECO ready learners trained in sciences, humanities, commerce, Islamic and Arabic studies."
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://wittyacademy.com/#website",
+            "url": "https://wittyacademy.com/",
+            "name": "Witty Group of Schools",
+            "inLanguage": "en-NG",
+            "publisher": {
+              "@id": "https://wittyacademy.com/#school"
+            }
+          }
+        ]
       }
     </script>
   </head>

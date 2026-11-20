@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { CalendarDays, Plus, Pencil, Trash2, MapPin } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { CalendarDays, Plus, Pencil, Trash2, MapPin, Paperclip } from 'lucide-react'
 import PageHeader from '../../components/ui/PageHeader'
 import Button from '../../components/ui/Button'
 import Card from '../../components/ui/Card'
@@ -15,6 +15,14 @@ const eventLabel = {
 }
 const inputCls = 'w-full rounded-xl border border-navy-100 px-3.5 py-2.5 text-sm outline-none transition focus:border-navy-400 focus:ring-2 focus:ring-navy-100'
 const emptyForm = { title: '', eventDate: '', type: 'exam', description: '', location: '' }
+const attachmentAccept = '.jpg,.jpeg,.png,.webp,.gif,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv'
+
+const formatBytes = (bytes) => {
+  const value = Number(bytes) || 0
+  if (value < 1024) return `${value} B`
+  if (value < 1024 * 1024) return `${Math.round(value / 1024)} KB`
+  return `${(value / (1024 * 1024)).toFixed(1)} MB`
+}
 
 export default function AdminEvents() {
   const [rows, setRows] = useState([])
@@ -26,6 +34,9 @@ export default function AdminEvents() {
   const [form, setForm] = useState(emptyForm)
   const [formError, setFormError] = useState(null)
   const [saving, setSaving] = useState(false)
+  const [attachment, setAttachment] = useState(null)
+  const [removeAttachment, setRemoveAttachment] = useState(false)
+  const fileRef = useRef(null)
 
   const load = async () => {
     setLoading(true)
@@ -47,12 +58,18 @@ export default function AdminEvents() {
   const openCreate = () => {
     setForm({ ...emptyForm, eventDate: new Date().toISOString().slice(0, 10) })
     setFormError(null)
+    setAttachment(null)
+    setRemoveAttachment(false)
+    if (fileRef.current) fileRef.current.value = ''
     setCreate(true)
   }
 
   const openEdit = (row) => {
     setForm({ title: row.title, eventDate: row.rawDate, type: row.type, description: row.description || '', location: row.location || '' })
     setFormError(null)
+    setAttachment(null)
+    setRemoveAttachment(false)
+    if (fileRef.current) fileRef.current.value = ''
     setEditing(row)
   }
 
@@ -61,14 +78,54 @@ export default function AdminEvents() {
     setEditing(null)
     setForm(emptyForm)
     setFormError(null)
+    setAttachment(null)
+    setRemoveAttachment(false)
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0] || null
+    setFormError(null)
+
+    if (!file) {
+      setAttachment(null)
+      return
+    }
+
+    const isImage = file.type.startsWith('image/')
+    const limit = isImage ? 100 * 1024 : 2 * 1024 * 1024
+
+    if (file.size > limit) {
+      setAttachment(null)
+      event.target.value = ''
+      setFormError(isImage ? 'Images must not be larger than 100 KB.' : 'Documents and PDFs must not be larger than 2 MB.')
+      return
+    }
+
+    setAttachment(file)
   }
 
   const handleSave = async () => {
     setSaving(true)
     setFormError(null)
     try {
-      if (editing) await admin.updateEvent(editing.id, form)
-      else await admin.createEvent(form)
+      const payload = new FormData()
+      payload.append('title', form.title)
+      payload.append('eventDate', form.eventDate)
+      payload.append('type', form.type)
+      payload.append('description', form.description || '')
+      payload.append('location', form.location || '')
+
+      if (attachment) payload.append('attachment', attachment)
+
+      if (editing) {
+        payload.append('_method', 'PUT')
+        if (removeAttachment) payload.append('removeAttachment', '1')
+        await admin.updateEvent(editing.id, payload)
+      } else {
+        await admin.createEvent(payload)
+      }
+
       closeForm()
       load()
     } catch (e) {
@@ -127,6 +184,17 @@ export default function AdminEvents() {
             </div>
             <p className="mt-4 text-sm leading-relaxed text-slate-500">{e.description || 'No description provided.'}</p>
             {e.location && <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-400"><MapPin size={12} /> {e.location}</p>}
+            {e.attachment && (
+              <a
+                href={e.attachment.url}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-navy-600 transition hover:text-navy-900"
+              >
+                <Paperclip size={12} /> {e.attachment.name}
+                <span className="font-normal text-slate-400">({formatBytes(e.attachment.size)})</span>
+              </a>
+            )}
             <div className="mt-4 flex justify-end gap-2">
               <Button tone="ghost" size="sm" onClick={() => openEdit(e)}><Pencil size={13} /> Edit</Button>
               <Button tone="outline" size="sm" onClick={() => handleDelete(e)}><Trash2 size={13} /> Delete</Button>
@@ -160,6 +228,33 @@ export default function AdminEvents() {
             <span className="mb-1.5 block text-sm font-semibold text-navy-800">Description</span>
             <textarea rows={3} className={inputCls} value={form.description} onChange={setField('description')} />
           </label>
+          <div className="block sm:col-span-2">
+            <span className="mb-1.5 block text-sm font-semibold text-navy-800">Attachment (optional)</span>
+            <input
+              ref={fileRef}
+              type="file"
+              accept={attachmentAccept}
+              onChange={handleFileChange}
+              className="w-full rounded-xl border border-navy-100 px-3.5 py-2.5 text-sm text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-navy-50 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-navy-700"
+            />
+            <p className="mt-1 text-xs text-slate-400">Images up to 100 KB. PDF and documents up to 2 MB.</p>
+            {attachment && (
+              <p className="mt-1.5 flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                <Paperclip size={12} /> {attachment.name} ({formatBytes(attachment.size)})
+              </p>
+            )}
+            {editing?.attachment && !attachment && (
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-navy-50/60 px-3 py-2">
+                <a href={editing.attachment.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-navy-700">
+                  <Paperclip size={12} /> {editing.attachment.name} ({formatBytes(editing.attachment.size)})
+                </a>
+                <label className="flex items-center gap-1.5 text-xs font-semibold text-rose-600">
+                  <input type="checkbox" checked={removeAttachment} onChange={(e) => setRemoveAttachment(e.target.checked)} />
+                  Remove
+                </label>
+              </div>
+            )}
+          </div>
         </div>
         {formError && <p className="mt-4 rounded-xl bg-rose-50 px-4 py-2.5 text-sm font-medium text-rose-600">{formError}</p>}
         <div className="mt-6 flex justify-end gap-2">

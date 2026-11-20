@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Megaphone } from 'lucide-react'
+import { Megaphone, Paperclip } from 'lucide-react'
 import PageHeader from '../../components/ui/PageHeader'
 import Card from '../../components/ui/Card'
 import Badge from '../../components/ui/Badge'
@@ -54,6 +54,16 @@ export default function ParentAnnouncements() {
                   <h3 className="mt-1.5 font-bold text-navy-900">{announcement.title}</h3>
                   <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-500">{announcement.message}</p>
                   <div className="mt-2"><Badge color="slate" dot>Audience: {announcement.audience}</Badge></div>
+                  {announcement.attachment && (
+                    <a
+                      href={announcement.attachment.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-navy-600 transition hover:text-navy-900"
+                    >
+                      <Paperclip size={13} /> {announcement.attachment.name}
+                    </a>
+                  )}
                 </div>
               </div>
             </Card>

@@ -41,7 +41,7 @@ export default function SiteNav() {
               Witty Group <span className="text-gold-500">of Schools</span>
             </span>
             <span className="block text-[11px] font-medium text-slate-500">
-              Secondary School Portal
+              Islamic &amp; Western Academy · Ilorin
             </span>
           </span>
         </Link>

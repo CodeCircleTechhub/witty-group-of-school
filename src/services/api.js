@@ -1,4 +1,4 @@
-const BASE = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api').replace(/\/$/, '')
+const BASE = (import.meta.env.VITE_API_URL || 'https://api.witty.com.ng/api').replace(/\/$/, '')
 
 const TOKEN_KEY = 'wgs.token'
 
@@ -49,7 +49,7 @@ export async function api(path, { method = 'GET', body, params, signal } = {}) {
       signal,
     })
   } catch {
-    throw new ApiError('Could not reach the server. Is the backend running?', 0)
+    throw new ApiError('Could not reach the server. Please check your internet connection and try again.', 0)
   }
 
   const data = await res.json().catch(() => null)
@@ -91,7 +91,7 @@ export async function apiUpload(path, formData, { params } = {}) {
   try {
     res = await fetch(url.toString(), { method: 'POST', headers, body: formData })
   } catch {
-    throw new ApiError('Could not reach the server. Is the backend running?', 0)
+    throw new ApiError('Could not reach the server. Please check your internet connection and try again.', 0)
   }
 
   const data = await res.json().catch(() => null)
@@ -128,7 +128,7 @@ export async function downloadFile(path, { params, filename } = {}) {
   try {
     res = await fetch(url.toString(), { headers })
   } catch {
-    throw new ApiError('Could not reach the server. Is the backend running?', 0)
+    throw new ApiError('Could not reach the server. Please check your internet connection and try again.', 0)
   }
 
   if (!res.ok) {
@@ -186,6 +186,8 @@ export const admin = {
   dashboard: () => api('/admin/dashboard'),
 
   students: (params) => api('/admin/students', { params }),
+  downloadStudentTemplate: (params) => downloadFile('/admin/students/template', { params }),
+  uploadStudents: (formData) => apiUpload('/admin/students/bulk-upload', formData),
   showStudent: (id) => api(`/admin/students/${id}`),
   createStudent: (body) => api('/admin/students', { method: 'POST', body }),
   updateStudent: (id, body) => api(`/admin/students/${id}`, { method: 'PUT', body }),
@@ -274,13 +276,21 @@ export const admin = {
   rejectPayment: (id) => api(`/admin/payments/${id}/reject`, { method: 'POST' }),
 
   announcements: (params) => api('/admin/announcements', { params }),
-  createAnnouncement: (body) => api('/admin/announcements', { method: 'POST', body }),
-  updateAnnouncement: (id, body) => api(`/admin/announcements/${id}`, { method: 'PUT', body }),
+  createAnnouncement: (body) => body instanceof FormData
+    ? apiUpload('/admin/announcements', body)
+    : api('/admin/announcements', { method: 'POST', body }),
+  updateAnnouncement: (id, body) => body instanceof FormData
+    ? apiUpload(`/admin/announcements/${id}`, body)
+    : api(`/admin/announcements/${id}`, { method: 'PUT', body }),
   deleteAnnouncement: (id) => api(`/admin/announcements/${id}`, { method: 'DELETE' }),
 
   events: (params) => api('/admin/events', { params }),
-  createEvent: (body) => api('/admin/events', { method: 'POST', body }),
-  updateEvent: (id, body) => api(`/admin/events/${id}`, { method: 'PUT', body }),
+  createEvent: (body) => body instanceof FormData
+    ? apiUpload('/admin/events', body)
+    : api('/admin/events', { method: 'POST', body }),
+  updateEvent: (id, body) => body instanceof FormData
+    ? apiUpload(`/admin/events/${id}`, body)
+    : api(`/admin/events/${id}`, { method: 'PUT', body }),
   deleteEvent: (id) => api(`/admin/events/${id}`, { method: 'DELETE' }),
 
   conversations: () => api('/admin/messages/conversations'),

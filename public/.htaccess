@@ -2,6 +2,15 @@
     RewriteEngine On
     RewriteBase /
 
+    # Canonical host: send www.witty.com.ng to witty.com.ng
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+    # Force HTTPS (works behind a proxy too)
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     RewriteRule ^index\.html$ - [L]
 
     # Serve existing files and directories as-is

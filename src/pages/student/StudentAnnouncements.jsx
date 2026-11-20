@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Bell, ChevronDown, Search } from 'lucide-react'
+import { Bell, ChevronDown, Paperclip, Search } from 'lucide-react'
 import PageHeader from '../../components/ui/PageHeader'
 import Card from '../../components/ui/Card'
 import Badge from '../../components/ui/Badge'
@@ -87,6 +87,16 @@ export default function StudentAnnouncements() {
                       <Badge color="slate">{announcement.audience}</Badge>
                       {announcement.type && <Badge color="navy">{announcement.type}</Badge>}
                     </div>
+                    {announcement.attachment && (
+                      <a
+                        href={announcement.attachment.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-navy-600 transition hover:text-navy-900"
+                      >
+                        <Paperclip size={13} /> {announcement.attachment.name}
+                      </a>
+                    )}
                   </div>
                 )}
               </Card>

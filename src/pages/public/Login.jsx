@@ -57,24 +57,24 @@ export default function Login() {
           transition={{ duration: 0.5 }}
           className="overflow-hidden rounded-3xl border border-navy-100 bg-white shadow-lift lg:grid lg:grid-cols-2"
         >
-          <div className="relative hidden bg-navy-950 text-white lg:flex lg:flex-col lg:justify-center lg:p-12">
+          <div className="relative flex flex-col justify-center bg-navy-950 p-6 text-white sm:p-9 lg:p-12">
             <div className="absolute inset-0 opacity-15"
               style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #d9a62e 0%, transparent 45%), radial-gradient(circle at 80% 70%, #2a478e 0%, transparent 50%)' }}
             />
             <div className="relative">
               <span className="inline-flex items-center gap-2 text-sm font-semibold text-gold-400">
-                <img src={logo} alt={`${school.name} logo`} className="h-7 w-7 rounded-lg object-contain" /> {school.shortName} Portal
+                <img src={logo} alt={`${school.name} logo`} className="h-8 w-8 rounded-lg object-contain" /> {school.shortName} Portal
               </span>
-              <h2 className="mt-4 text-3xl font-extrabold leading-tight">
+              <h2 className="mt-3 text-2xl font-extrabold leading-tight sm:mt-4 sm:text-3xl">
                 One Account.<br />One Student.<br /><span className="text-gold-400">Connected.</span>
               </h2>
-              <p className="mt-4 max-w-sm text-cream-100/70">
+              <p className="mt-3 max-w-sm text-sm text-cream-100/70 sm:mt-4 sm:text-base">
                 Admins, teachers, students and parents stay in sync around the same records — results, attendance, fees and reports.
               </p>
-              <div className="mt-10 space-y-3 text-sm">
+              <div className="mt-6 grid gap-2 text-sm sm:mt-8 sm:grid-cols-2 lg:mt-10 lg:block lg:space-y-3">
                 {features.map(([t, d]) => (
                   <div key={t} className="flex items-start gap-3 rounded-xl bg-white/5 p-3">
-                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-gold-400" />
+                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-gold-400" />
                     <div><p className="font-semibold">{t}</p><p className="text-cream-100/60">{d}</p></div>
                   </div>
                 ))}
@@ -82,7 +82,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="p-8 sm:p-10">
+          <div className="p-6 sm:p-10">
             <h1 className="text-2xl font-extrabold tracking-tight text-navy-900">Welcome back 👋</h1>
             <p className="mt-1 text-sm text-slate-500">Sign in to access your {school.shortName} portal dashboard.</p>
 
