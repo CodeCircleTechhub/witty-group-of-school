@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const base = 'Witty Group of Schools'
-const site = 'https://wittyacademy.com'
+const site = 'https://witty.com.ng'
 const logo = `${site}/logo.jpeg`
 const socialImage = `${site}/og-image.jpg`
 const socialImageAlt = 'Witty Group of Schools logo with students in school uniform'

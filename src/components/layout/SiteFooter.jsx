@@ -6,7 +6,7 @@ import logo from '../../assets/witty logo.jpeg'
 export default function SiteFooter() {
   return (
     <footer className="bg-navy-950 text-cream-100">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-14 md:grid-cols-4 md:gap-10">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-white/10">
@@ -52,7 +52,7 @@ export default function SiteFooter() {
               <Mail size={16} className="shrink-0 text-gold-400" /> {school.email}
             </li>
           </ul>
-          <div className="mt-4 flex items-center gap-3 text-xs">
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs sm:gap-3">
             <span className="rounded-full bg-white/10 px-3 py-1.5 font-semibold">Shirt: {school.uniform.shirt}</span>
             <span className="rounded-full bg-white/10 px-3 py-1.5 font-semibold">Trouser: {school.uniform.trouser}</span>
           </div>

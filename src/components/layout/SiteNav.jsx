@@ -18,7 +18,7 @@ export default function SiteNav() {
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-navy-100">
       <div className="hidden bg-navy-950 text-cream-100 md:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5 text-xs sm:px-6">
           <div className="flex items-center gap-5">
             <span className="inline-flex items-center gap-1.5">
               <Phone size={12} /> {school.phones.join(' • ')}
@@ -31,16 +31,16 @@ export default function SiteNav() {
         </div>
       </div>
 
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-navy-800 shadow-lg shadow-navy-800/30">
-            <img src={logo} alt={`${school.name} logo`} className="h-9 w-9 object-contain" />
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+        <Link to="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+          <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-navy-800 shadow-lg shadow-navy-800/30 sm:h-11 sm:w-11">
+            <img src={logo} alt={`${school.name} logo`} className="h-8 w-8 object-contain sm:h-9 sm:w-9" />
           </span>
-          <span>
-            <span className="block text-lg font-extrabold leading-tight tracking-tight text-navy-900">
+          <span className="min-w-0">
+            <span className="block truncate text-base font-extrabold leading-tight tracking-tight text-navy-900 sm:text-lg">
               Witty Group <span className="text-gold-500">of Schools</span>
             </span>
-            <span className="block text-[11px] font-medium text-slate-500">
+            <span className="hidden truncate text-[11px] font-medium text-slate-500 sm:block">
               Islamic &amp; Western Academy · Ilorin
             </span>
           </span>
@@ -82,7 +82,7 @@ export default function SiteNav() {
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden border-t border-navy-100 bg-white md:hidden"
           >
-            <div className="flex flex-col gap-2 px-6 py-4">
+            <div className="flex flex-col gap-2 px-4 py-4 sm:px-6">
               {links.map((l) => (
                 <Link
                   key={l.to}
